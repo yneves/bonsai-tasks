@@ -1,0 +1,26 @@
+{
+  "name": "bonsai-tasks",
+  "version": "0.2.0",
+  "description": "Just another TODO application with AngularJS.",
+  "keywords": [],
+  "license": "MIT",
+  "homepage": "https://github.com/yneves/bonsai-tasks",
+  "author": {
+    "name": "Yuri Neves Silveira",
+    "url": "http://yneves.com/",
+    "email": "npm@yneves.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yneves/bonsai-tasks.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "mocha": ">=1.0.0"
+  },
+  "dependencies": {
+    "express": "^4.9.0"
+  }
+}

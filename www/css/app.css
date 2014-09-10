@@ -1,0 +1,26 @@
+/* - --------------------------------------------------------- - */
+
+* {
+  box-sizing: border-box;
+  xmargin: 0px;
+  xpadding: 0px;
+  font-family: 'Lucida Grande', sans-serif;
+}
+
+html, body {
+
+}
+
+.selected {
+  background-color: #CCC;
+}
+
+section {
+  float: left;
+  height: 100%;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+/* - --------------------------------------------------------- - */
