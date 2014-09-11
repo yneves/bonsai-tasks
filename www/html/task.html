@@ -9,9 +9,9 @@
   </form>
   <div>
     <ul>
-        <li ng-repeat="task in tasks" ng-class="{selected: task.id === selected.task, checked: task.done}">
-          <input type="checkbox" ng-model="task.done" />
-          <span ng-click="selectTask(task.id)">{{task.text}}</span>
+        <li ng-repeat="task in tasks" ng-click="selectTask(task.id)" ng-class="{selected: task.id === selected.task, checked: task.done}">
+          <input type="checkbox" ng-model="task.done" stop-click />
+          <span>{{task.text}}</span>
           <button type="button" class="delete" ng-click="deleteTask(task.id)"></button>
           <small ng-repeat="label in task.labels">
             {{label.name}}

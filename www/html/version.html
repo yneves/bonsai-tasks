@@ -9,9 +9,9 @@
   </form>
   <div>
     <ul>
-        <li ng-repeat="version in versions" ng-class="{selected: version.id === selected.version, checked: version.done}">
-          <input type="checkbox" ng-model="version.done" />
-          <span ng-click="selectVersion(version.id)">{{version.number}}</span>
+        <li ng-repeat="version in versions" ng-click="selectVersion(version.id)" ng-class="{selected: version.id === selected.version, checked: version.done}">
+          <input type="checkbox" ng-model="version.done" stop-click />
+          <span>{{version.number}}</span>
           <button type="button" class="delete" ng-click="deleteVersion(version.id)"></button>
         </li>
     </ul>

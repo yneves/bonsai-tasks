@@ -3,7 +3,7 @@
   <head>
     <title>Bonsai Tasks</title>
   </head>
-  <body>
+  <body stop-select>
 
     <aside>
       <section id="projects" ng-controller="ProjectController">
@@ -17,9 +17,9 @@
   </form>
   <div>
     <ul>
-        <li ng-repeat="project in projects" ng-class="{selected: project.id === selected.project, checked: project.done}">
-          <input type="checkbox" ng-model="project.done" />
-          <span ng-click="selectProject(project.id)">{{project.name}}</span>
+        <li ng-repeat="project in projects" ng-click="selectProject(project.id)" ng-class="{selected: project.id === selected.project, checked: project.done}">
+          <input type="checkbox" ng-model="project.done" stop-click />
+          <span>{{project.name}}</span>
           <button type="button" class="delete" ng-click="deleteProject(project.id)"></button>
         </li>
     </ul>
@@ -37,9 +37,9 @@
   </form>
   <div>
     <ul>
-        <li ng-repeat="version in versions" ng-class="{selected: version.id === selected.version, checked: version.done}">
-          <input type="checkbox" ng-model="version.done" />
-          <span ng-click="selectVersion(version.id)">{{version.number}}</span>
+        <li ng-repeat="version in versions" ng-click="selectVersion(version.id)" ng-class="{selected: version.id === selected.version, checked: version.done}">
+          <input type="checkbox" ng-model="version.done" stop-click />
+          <span>{{version.number}}</span>
           <button type="button" class="delete" ng-click="deleteVersion(version.id)"></button>
         </li>
     </ul>
@@ -57,9 +57,9 @@
   </form>
   <div>
     <ul>
-        <li ng-repeat="label in labels" ng-class="{selected: label.id === selected.label, checked: label.done}">
-          <input type="checkbox" ng-model="label.done" />
-          <span ng-click="selectLabel(label.id)">{{label.name}}</span>
+        <li ng-repeat="label in labels" ng-click="selectLabel(label.id)" ng-class="{selected: label.id === selected.label, checked: label.done}">
+          <input type="checkbox" ng-model="label.done" stop-click />
+          <span>{{label.name}}</span>
           <button type="button" class="delete" ng-click="deleteLabel(label.id)"></button>
         </li>
     </ul>
@@ -80,9 +80,9 @@
   </form>
   <div>
     <ul>
-        <li ng-repeat="task in tasks" ng-class="{selected: task.id === selected.task, checked: task.done}">
-          <input type="checkbox" ng-model="task.done" />
-          <span ng-click="selectTask(task.id)">{{task.text}}</span>
+        <li ng-repeat="task in tasks" ng-click="selectTask(task.id)" ng-class="{selected: task.id === selected.task, checked: task.done}">
+          <input type="checkbox" ng-model="task.done" stop-click />
+          <span>{{task.text}}</span>
           <button type="button" class="delete" ng-click="deleteTask(task.id)"></button>
           <small ng-repeat="label in task.labels">
             {{label.name}}
@@ -102,6 +102,7 @@
 <script src="js/src/controllers/project.js" type="text/javascript"></script>
 <script src="js/src/controllers/task.js" type="text/javascript"></script>
 <script src="js/src/controllers/version.js" type="text/javascript"></script>
+<script src="js/src/directives/stop-event.js" type="text/javascript"></script>
 <script src="js/src/factories/data.js" type="text/javascript"></script>
 
 
