@@ -1,0 +1,19 @@
+<section id="versions" ng-controller="VersionController">
+  <header>
+    <input type="checkbox" ng-model="checked" ng-change="doneVersion(checked)"/>
+    <h1>{{lang.versions}}</h1>
+  </header>
+  <form ng-submit="addVersion()">
+    <input type="text" ng-model="versionNumber" placeholder="{{lang.newVersion}}">
+    <button type="submit">{{lang.submitVersion}}</button>
+  </form>
+  <div>
+    <ul>
+        <li ng-repeat="version in versions" ng-class="{selected: version.id === selected.version, checked: version.done}">
+          <input type="checkbox" ng-model="version.done" />
+          <span ng-click="selectVersion(version.id)">{{version.number}}</span>
+          <button type="button" class="delete" ng-click="deleteVersion(version.id)"></button>
+        </li>
+    </ul>
+  </div>
+</section>

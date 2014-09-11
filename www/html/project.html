@@ -1,0 +1,19 @@
+<section id="projects" ng-controller="ProjectController">
+  <header>
+    <input type="checkbox" ng-model="checked" ng-change="doneProject(checked)"/>
+    <h1>{{lang.projects}}</h1>
+  </header>
+  <form ng-submit="addProject()">
+    <input type="text" ng-model="projectName" placeholder="{{lang.newProject}}">
+    <button type="submit">{{lang.submitProject}}</button>
+  </form>
+  <div>
+    <ul>
+        <li ng-repeat="project in projects" ng-class="{selected: project.id === selected.project, checked: project.done}">
+          <input type="checkbox" ng-model="project.done" />
+          <span ng-click="selectProject(project.id)">{{project.name}}</span>
+          <button type="button" class="delete" ng-click="deleteProject(project.id)"></button>
+        </li>
+    </ul>
+  </div>
+</section>
