@@ -89,6 +89,18 @@ module.exports = function(grunt) {
       },
     },
 
+    htmlmin: {
+      prod: {
+        options: {
+          removeComments: true,
+          collapseWhitespace: true,
+        },
+        files: {
+          "./www/index.html": "./www/index.html",
+        },
+      },
+    },
+
     ngAnnotate: {
       prod: {
         files: {
@@ -117,6 +129,24 @@ module.exports = function(grunt) {
       },
     },
 
+    favicons: {
+      options: {
+        trueColor: true,
+        precomposed: true,
+        appleTouchBackgroundColor: "#DDDDDD",
+        coast: true,
+        windowsTile: true,
+        tileBlackWhite: false,
+        tileColor: "#DDDDDD",
+        html: "./www/html/icons.html",
+        HTMLPrefix: "../img/"
+      },
+      icons: {
+        src: "./www/img/logo-256.png",
+        dest: "./www/img"
+      }
+    },
+
   });
 
   grunt.loadTasks("tasks");
@@ -124,8 +154,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-contrib-less");
   grunt.loadNpmTasks("grunt-contrib-uglify");
+  grunt.loadNpmTasks("grunt-contrib-htmlmin");
   grunt.loadNpmTasks("grunt-ng-annotate");
   grunt.loadNpmTasks("grunt-manifest");
+  grunt.loadNpmTasks("grunt-favicons");
 
   grunt.registerTask("dev",[
     "less:dev",
@@ -145,6 +177,7 @@ module.exports = function(grunt) {
     "list:prodScripts",
     "list:prodStyles",
     "html:prod",
+    "htmlmin:prod",
     "manifest:prod",
   ]);
 

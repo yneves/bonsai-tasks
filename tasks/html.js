@@ -9,21 +9,6 @@ module.exports = function(grunt) {
 
   var path = require("path");
 
-  grunt.registerMultiTask("list",function() {
-    var config = this.data;
-    var templates = {
-      ".js": "<script src=\"<%= file %>\"></script>",
-      ".css": "<link rel=\"stylesheet\" href=\"<%= file %>\" />",
-    };
-    var files = grunt.file.expand({ cwd: config.cwd },config.src);
-    var html = files.map(function(file) {
-      var ext = path.extname(file);
-      var template = templates[ext];
-      return grunt.template.process(template,{ data: { file: file } });
-    }).join("\n");
-    grunt.file.write(config.dest,html);
-  });
-
   grunt.registerMultiTask("html",function() {
     var data = {
       pkg: grunt.config.get("pkg"),

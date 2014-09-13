@@ -14,7 +14,10 @@ app.run(function($window,$rootScope,Lang) {
   $rootScope.lang = Lang;
 
   function hideSplash() {
-    angular.element($window.document.getElementById("splash-style")).remove();
+    var elm = $window.document.getElementById("splash-style");
+    if (elm) {
+      angular.element(elm).remove();
+    }
   }
 
   var appCache = $window.applicationCache;

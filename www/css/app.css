@@ -1,5 +1,22 @@
 /* - --------------------------------------------------------- - */
 /* - --------------------------------------------------------- - */
+/* - browser support - */
+aside,
+main {
+  display: none;
+}
+p {
+  display: block;
+  padding: 10px;
+}
+html.js.localstorage.applicationcache.svg.inlinesvg p {
+  display: none;
+}
+html.js.localstorage.applicationcache.svg.inlinesvg aside,
+html.js.localstorage.applicationcache.svg.inlinesvg main {
+  display: block;
+}
+/* - --------------------------------------------------------- - */
 /* - globals - */
 * {
   box-sizing: border-box;
@@ -13,27 +30,54 @@
 html,
 body {
   height: 100%;
+  background-color: #dddddd;
 }
-html aside,
-body aside {
-  float: left;
-  height: 100%;
-  width: 20%;
-  border-right: 1px solid #cccccc;
+@media (min-width: 768px) {
+  html aside,
+  body aside {
+    float: left;
+    height: 100%;
+    width: 30%;
+    border-right: 1px solid #cccccc;
+  }
+  html aside section,
+  body aside section {
+    height: 50%;
+  }
+  html main,
+  body main {
+    float: left;
+    height: 100%;
+    width: 70%;
+  }
+  html main section,
+  body main section {
+    height: 100%;
+  }
 }
-html aside section,
-body aside section {
-  height: 50%;
+@media (min-width: 768px) and (min-width: 1024px) {
+  html aside,
+  body aside {
+    width: 25%;
+  }
 }
-html main,
-body main {
-  float: left;
-  width: 80%;
-  height: 100%;
+@media (min-width: 768px) and (min-width: 1280px) {
+  html aside,
+  body aside {
+    width: 20%;
+  }
 }
-html main section,
-body main section {
-  height: 100%;
+@media (min-width: 768px) and (min-width: 1024px) {
+  html main,
+  body main {
+    width: 75%;
+  }
+}
+@media (min-width: 768px) and (min-width: 1280px) {
+  html main,
+  body main {
+    width: 80%;
+  }
 }
 /* - --------------------------------------------------------- - */
 /* - section layout - */

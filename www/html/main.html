@@ -1,21 +1,13 @@
 <!DOCTYPE html>
-<html ng-app="BonsaiTasks" ng-touch <%= manifest  %>>
+<html ng-app="BonsaiTasks" ng-touch <%= manifest %>>
   <head>
     <title><%= pkg.productName %> vs <%= pkg.version %></title>
-    <style id="splash-style">
-    aside, main { display: none; }
-    html, body {
-      width: 100%;
-      height: 100%;
-      background-color: #003E00;
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: 96px 96px;
-      background-image: url("data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSJ3aGl0ZSI+DQogICAgICAgIDxjaXJjbGUgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOCAwKSIgY3g9IjAiIGN5PSIxNiIgcj0iMCI+DQogICAgICAgICAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgdmFsdWVzPSIwOyA0OyAwOyAwIiBkdXI9IjEuMnMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBiZWdpbj0iMCINCiAgICAgICAgICAgIGtleXRpbWVzPSIwOzAuMjswLjc7MSIga2V5U3BsaW5lcz0iMC4yIDAuMiAwLjQgMC44OzAuMiAwLjYgMC40IDAuODswLjIgMC42IDAuNCAwLjgiIGNhbGNNb2RlPSJzcGxpbmUiIC8+DQogICAgICAgIDwvY2lyY2xlPg0KICAgICAgICA8Y2lyY2xlIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE2IDApIiBjeD0iMCIgY3k9IjE2IiByPSIwIj4NCiAgICAgICAgICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJyIiB2YWx1ZXM9IjA7IDQ7IDA7IDAiIGR1cj0iMS4ycyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiIGJlZ2luPSIwLjMiDQogICAgICAgICAgICBrZXl0aW1lcz0iMDswLjI7MC43OzEiIGtleVNwbGluZXM9IjAuMiAwLjIgMC40IDAuODswLjIgMC42IDAuNCAwLjg7MC4yIDAuNiAwLjQgMC44IiBjYWxjTW9kZT0ic3BsaW5lIiAvPg0KICAgICAgICA8L2NpcmNsZT4NCiAgICAgICAgPGNpcmNsZSB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNCAwKSIgY3g9IjAiIGN5PSIxNiIgcj0iMCI+DQogICAgICAgICAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgdmFsdWVzPSIwOyA0OyAwOyAwIiBkdXI9IjEuMnMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBiZWdpbj0iMC42Ig0KICAgICAgICAgICAga2V5dGltZXM9IjA7MC4yOzAuNzsxIiBrZXlTcGxpbmVzPSIwLjIgMC4yIDAuNCAwLjg7MC4yIDAuNiAwLjQgMC44OzAuMiAwLjYgMC40IDAuOCIgY2FsY01vZGU9InNwbGluZSIgLz4NCiAgICAgICAgPC9jaXJjbGU+DQogICAgICA8L3N2Zz4=");
-    }
-    </style>
+    <%= mobile %>
+    <%= icons %>
+    <%= splash %>
   </head>
   <body stop-select>
+    <p>Browser not supported.</p>
     <aside>
       <%= project %>
       <%= version %>

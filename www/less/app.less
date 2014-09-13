@@ -15,13 +15,34 @@
 
 
 /* - --------------------------------------------------------- - */
+/* - browser support - */
+
+aside, main {
+  display: none;
+}
+
+p {
+  display: block;
+  padding: 10px;
+}
+
+html.js.localstorage.applicationcache.svg.inlinesvg {
+  p {
+    display: none;
+  }
+  aside, main {
+    display: block;
+  }
+}
+
+/* - --------------------------------------------------------- - */
 /* - globals - */
 
 * {
   box-sizing: border-box;
   margin: 0px;
   padding: 0px;
-  font-family: 'Segoe UI Light', sans-serif;
+  font-family: "Segoe UI Light", sans-serif;
   color: @font;
 }
 
@@ -30,21 +51,36 @@
 
 html, body {
   height: 100%;
-  aside {
-    float: left;
-    height: 100%;
-    width: 20%;
-    border-right: 1px solid @layout-border;
-    section {
-      height: 50%;
-    }
-  }
-  main {
-    float: left;
-    width: 80%;
-    height: 100%;
-    section {
+  background-color: @list-bg;
+  @media (min-width:768px) {
+    aside {
+      float: left;
       height: 100%;
+      width: 30%;
+      @media (min-width:1024px) {
+        width: 25%;
+      }
+      @media (min-width:1280px) {
+        width: 20%;
+      }
+      border-right: 1px solid @layout-border;
+      section {
+        height: 50%;
+      }
+    }
+    main {
+      float: left;
+      height: 100%;
+      width: 70%;
+      @media (min-width:1024px) {
+        width: 75%;
+      }
+      @media (min-width:1280px) {
+        width: 80%;
+      }
+      section {
+        height: 100%;
+      }
     }
   }
 }
