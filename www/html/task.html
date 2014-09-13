@@ -1,21 +1,17 @@
 <section id="tasks" ng-controller="TaskController">
   <header>
     <input type="checkbox" ng-model="checked" ng-change="doneTask(checked)"/>
-    <h1>{{lang.tasks}}</h1>
+    <h1><span class="text">{{lang.tasks}}</span></h1>
   </header>
   <form ng-submit="addTask()">
     <input type="text" ng-model="taskText" placeholder="{{lang.newTask}}">
-    <button type="submit">{{lang.submitTask}}</button>
   </form>
   <div>
     <ul>
         <li ng-repeat="task in tasks" ng-click="selectTask(task.id)" ng-class="{selected: task.id === selected.task, checked: task.done}">
           <input type="checkbox" ng-model="task.done" stop-click />
-          <span>{{task.text}}</span>
+          <span class="text">{{task.text}}</span>
           <button type="button" class="delete" ng-click="deleteTask(task.id)"></button>
-          <small ng-repeat="label in task.labels">
-            {{label.name}}
-          </small>
         </li>
     </ul>
   </div>

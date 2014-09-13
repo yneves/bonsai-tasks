@@ -7,30 +7,34 @@
 // - -------------------------------------------------------------------- - //
 module.exports = function(grunt) {
 
-  grunt.registerTask("build-html",function() {
+  var path = require("path");
 
-    var path = require("path");
-
-    var data = {
-      title: grunt.config.get("pkg.productName"),
+  grunt.registerMultiTask("list",function() {
+    var config = this.data;
+    var templates = {
+      ".js": "<script src=\"<%= file %>\"></script>",
+      ".css": "<link rel=\"stylesheet\" href=\"<%= file %>\" />",
     };
+    var files = grunt.file.expand({ cwd: config.cwd },config.src);
+    var html = files.map(function(file) {
+      var ext = path.extname(file);
+      var template = templates[ext];
+      return grunt.template.process(template,{ data: { file: file } });
+    }).join("\n");
+    grunt.file.write(config.dest,html);
+  });
 
-    grunt.file.recurse("./www/html",function(file) {
+  grunt.registerMultiTask("html",function() {
+    var data = {
+      pkg: grunt.config.get("pkg"),
+      manifest: this.data.manifest ? 'manifest="' + this.data.manifest + '"' : "",
+    };
+    grunt.file.recurse(this.data.path,function(file) {
       var name = path.basename(file,path.extname(file));
       data[name] = grunt.file.read(file,{ encoding: "utf8" });
     });
-
-    data.styles = grunt.file.expand({ cwd: "./www" },"css/**/*.css").map(function(file) {
-      return grunt.template.process(data.css,{ data: { src: file } });
-    }).join("");
-
-    data.scripts = grunt.file.expand({ cwd: "./www" },"js/**/*.js").map(function(file) {
-      return grunt.template.process(data.js,{ data: { src: file } });
-    }).join("");
-
     var html = grunt.template.process(data.main,{ data: data });
-    grunt.file.write("./www/index.html",html);
-
+    grunt.file.write(this.data.dest,html);
   });
 
 };

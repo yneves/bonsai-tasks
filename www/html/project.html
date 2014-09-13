@@ -1,17 +1,16 @@
 <section id="projects" ng-controller="ProjectController">
   <header>
     <input type="checkbox" ng-model="checked" ng-change="doneProject(checked)"/>
-    <h1>{{lang.projects}}</h1>
+    <h1><span class="text">{{lang.projects}}</span></h1>
   </header>
   <form ng-submit="addProject()">
     <input type="text" ng-model="projectName" placeholder="{{lang.newProject}}">
-    <button type="submit">{{lang.submitProject}}</button>
   </form>
   <div>
     <ul>
         <li ng-repeat="project in projects" ng-click="selectProject(project.id)" ng-class="{selected: project.id === selected.project, checked: project.done}">
           <input type="checkbox" ng-model="project.done" stop-click />
-          <span>{{project.name}}</span>
+          <span class="text">{{project.name}}</span>
           <button type="button" class="delete" ng-click="deleteProject(project.id)"></button>
         </li>
     </ul>

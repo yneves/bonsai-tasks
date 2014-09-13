@@ -6,331 +6,266 @@
 */
 // - -------------------------------------------------------------------- - //
 
-app.factory("Data",function($rootScope) {
+app.factory("Data",function($window) {
 
-  // stores last id for each entity
-  var counter = {
-    project: 0,
-    version: 0,
-    label: 0,
-    task: 0,
+  var projects = [];
+  var versions = [];
+  var tasks = [];
+
+  function loadData() {
+    var psaved = $window.localStorage.getItem("projects");
+    if (psaved) projects = JSON.parse(psaved);
+    var vsaved = $window.localStorage.getItem("versions");
+    if (vsaved) versions = JSON.parse(vsaved);
+    var tsaved = $window.localStorage.getItem("tasks");
+    if (tsaved) tasks = JSON.parse(tsaved);
   };
 
-  // stores all data for each entity
-  var stored = {
+  loadData();
+
+  function saveProjects() {
+    console.log(JSON.stringify(projects));
+    $window.localStorage.setItem("projects",JSON.stringify(projects));
+  };
+
+  function saveVersions() {
+    $window.localStorage.setItem("versions",JSON.stringify(versions));
+  };
+
+  function saveTasks() {
+    $window.localStorage.setItem("tasks",JSON.stringify(tasks));
+  };
+
+  var state = {
+    counter: {
+      project: 0,
+      version: 0,
+      task: 0,
+    },
+    selected: {
+      project: 0,
+      version: 0,
+      task: 0,
+    },
+    done: {
+      project: false,
+      version: false,
+      task: false,
+    },
+  };
+
+  function loadState() {
+    var saved = $window.localStorage.getItem("state");
+    if (saved) state = JSON.parse(saved);
+  };
+
+  loadState();
+
+  function saveState() {
+    $window.localStorage.setItem("state",JSON.stringify(state));
+  };
+
+  var bound = {
     projects: [],
     versions: [],
-    labels: [],
     tasks: [],
   };
 
-  // stores those which is visible after all filters are applied
-  var listed = {
-    projects: [],
-    versions: [],
-    labels: [],
-    tasks: [],
+  function refreshProjects() {
+    bound.projects.splice(0,bound.projects.length);
+    projects.forEach(function(project) {
+      if (state.done.project || !project.done) {
+        bound.projects.push({
+          id: project.id,
+          name: project.name,
+          done: project.done,
+        });
+      }
+    });
   };
 
-  // stores the id of the selected item of each entity
-  var selected = {
-    project: 0,
-    version: 0,
-    label: 0,
-    task: 0,
-  };
-
-  // stores the state of the .done filtering
-  var checked = {
-    project: false,
-    version: false,
-    label: false,
-    task: false,
-  };
-
-// - -------------------------------------------------------------------- - //
-
-  // methods which are not exported
-  var internal = {
-
-    clear: function() {
-      var localStorage = window.localStorage;
-      if (localStorage) {
-        localStorage.removeItem("stored");
-        localStorage.removeItem("listed");
-        localStorage.removeItem("counter");
-        localStorage.removeItem("checked");
-        localStorage.removeItem("selected");
-      }
-    },
-
-    save: function() {
-      var localStorage = window.localStorage;
-      if (localStorage) {
-        localStorage.setItem("stored",JSON.stringify(stored));
-        localStorage.setItem("listed",JSON.stringify(listed));
-        localStorage.setItem("counter",JSON.stringify(counter));
-        localStorage.setItem("checked",JSON.stringify(checked));
-        localStorage.setItem("selected",JSON.stringify(selected));
-      }
-    },
-
-    load: function() {
-      var localStorage = window.localStorage;
-      if (localStorage) {
-        var saved = {
-          stored: localStorage.getItem("stored"),
-          listed: localStorage.getItem("listed"),
-          counter: localStorage.getItem("counter"),
-          checked: localStorage.getItem("checked"),
-          selected: localStorage.getItem("selected"),
-        };
-        if (!!saved.stored) stored = JSON.parse(saved.stored);
-        if (!!saved.listed) listed = JSON.parse(saved.listed);
-        if (!!saved.counter) counter = JSON.parse(saved.counter);
-        if (!!saved.checked) checked = JSON.parse(saved.checked);
-        if (!!saved.selected) selected = JSON.parse(saved.selected);
-      }
-    },
-
-    flushProjects: function() {
-      listed.projects.splice(0,listed.projects.length);
-      stored.projects.forEach(function(project) {
-        if (checked.project || !project.done) {
-          listed.projects.push(project);
+  function refreshVersions() {
+    bound.versions.splice(0,bound.versions.length);
+    versions.forEach(function(version) {
+      if (state.selected.project === version.project) {
+        if (state.done.version || !version.done) {
+          bound.versions.push({
+            id: version.id,
+            number: version.number,
+            done: version.done,
+          });
         }
-      });
-    },
+      }
+    });
+  };
 
-    flushVersions: function() {
-      listed.versions.splice(0,listed.versions.length);
-      stored.versions.forEach(function(version) {
-        if (version.project === selected.project) {
-          if (checked.version || !version.done) {
-            listed.versions.push(version);
+  function refreshTasks() {
+    bound.tasks.splice(0,bound.tasks.length);
+    tasks.forEach(function(task) {
+      if (task.project === state.selected.project) {
+        if (task.version === state.selected.version || state.selected.version === 0) {
+          if (state.done.task || !task.done) {
+            bound.tasks.push({
+              id: task.id,
+              text: task.text,
+              done: task.done,
+            });
           }
         }
-      });
-    },
-
-    flushLabels: function() {
-      listed.labels.splice(0,listed.labels.length);
-      stored.labels.forEach(function(label) {
-        if (label.project === selected.project) {
-          if (checked.label || !label.done) {
-            listed.labels.push(label);
-          }
-        }
-      });
-    },
-
-    flushTasks: function() {
-      listed.tasks.splice(0,listed.tasks.length);
-      stored.tasks.forEach(function(task) {
-        if (task.project === selected.project) {
-          if (task.version === selected.version || selected.version === 0) {
-            if (checked.task || !task.done) {
-              listed.tasks.push(task);
-            }
-          }
-        }
-      });
-    },
-
+      }
+    });
   };
 
-// - -------------------------------------------------------------------- - //
+  refreshProjects();
+  refreshVersions();
+  refreshTasks();
 
-  // methods which are exported
-  var exports = {
+  return {
 
-    selected: function() {
-      return selected;
-    },
-
-    getProjects: function() {
-      return listed.projects;
-    },
-
-    getVersions: function() {
-      return listed.versions;
-    },
-
-    getLabels: function() {
-      return listed.labels;
-    },
-
-    getTasks: function() {
-      return listed.tasks;
-    },
+    getSelected: function() { return state.selected; },
+    getProjects: function() { return bound.projects; },
+    getVersions: function() { return bound.versions; },
+    getTasks: function() { return bound.tasks; },
 
     addProject: function(projectName) {
-      stored.projects.push({
-        id: ++counter.project,
-        name: projectName,
-        done: false,
-      });
-      internal.flushProjects();
+      if (/\w/.test(projectName)) {
+        projects.push({
+          id: ++state.counter.project,
+          name: projectName,
+          done: false,
+        });
+        refreshProjects();
+        saveProjects();
+      }
     },
 
     addVersion: function(versionNumber) {
-      stored.versions.push({
-        id: ++counter.version,
-        project: selected.project,
-        number: versionNumber,
-        done: false,
-      });
-      internal.flushVersions();
-    },
-
-    addLabel: function(labelName) {
-      stored.labels.push({
-        id: ++counter.label,
-        project: selected.project,
-        name: labelName,
-        done: false,
-      });
-      internal.flushLabels();
+      if (/\w/.test(versionNumber)) {
+        versions.push({
+          id: ++state.counter.version,
+          project: state.selected.project,
+          number: versionNumber,
+          done: false,
+        });
+        refreshVersions();
+        saveVersions();
+      }
     },
 
     addTask: function(taskText) {
-      var tokens = {};
-      taskText = taskText.replace(/\#([\w]+)/g,function(str,token) {
-        tokens[token] = true;
-        return "";
-      });
-      var labels = listed.labels.filter(function(label) {
-        return tokens[label.name];
-      });
-      stored.tasks.push({
-        id: ++counter.task,
-        project: selected.project,
-        version: selected.version,
-        // labels: labels,
-        labels: [{name: "asdsdasda"},{name:"wqeewqe"}],
-        text: taskText,
-        done: false,
-      });
-      internal.flushTasks();
+      if (/\w/.test(taskText)) {
+        tasks.push({
+          id: ++state.counter.task,
+          project: state.selected.project,
+          version: state.selected.version,
+          text: taskText,
+          done: false,
+        });
+        refreshTasks();
+        saveTasks();
+      }
     },
 
     deleteProject: function(projectId) {
-      stored.projects.forEach(function(project,projectIndex) {
+      projects.forEach(function(project,projectIndex) {
         if (project.id === projectId) {
-          stored.projects.splice(projectIndex,1);
-          stored.versions.forEach(function(version,versionIndex) {
+          projects.splice(projectIndex,1);
+          versions.forEach(function(version,versionIndex) {
             if (version.project === projectId) {
-              stored.versions.splice(versionIndex,1);
+              versions.splice(versionIndex,1);
             }
           });
-          stored.labels.forEach(function(label,labelIndex) {
-            if (label.project === projectId) {
-              stored.labels.splice(labelIndex,1);
-            }
-          });
-          stored.tasks.forEach(function(task,taskIndex) {
+          tasks.forEach(function(task,taskIndex) {
             if (task.project === projectId) {
-              stored.tasks.splice(taskIndex,1);
+              tasks.splice(taskIndex,1);
             }
           });
+          refreshProjects();
+          refreshVersions();
+          refreshTasks();
+          saveProjects();
+          saveVersions();
+          saveTasks();
         }
       });
-      internal.flushProjects();
     },
 
     deleteVersion: function(versionId) {
-      stored.versions.forEach(function(version,index) {
+      versions.forEach(function(version,index) {
         if (version.id === versionId) {
-          stored.versions.splice(index,1);
+          versions.splice(index,1);
+          tasks.forEach(function(task,taskIndex) {
+            if (task.version === versionId) {
+              tasks.splice(taskIndex,1);
+            }
+          });
+          refreshVersions();
+          refreshTasks();
+          saveVersions();
+          saveTasks();
         }
       });
-      internal.flushVersions();
-    },
-
-    deleteLabel: function(labelId) {
-      stored.labels.forEach(function(label,index) {
-        if (label.id === labelId) {
-          stored.labels.splice(index,1);
-        }
-      });
-      internal.flushLabels();
     },
 
     deleteTask: function(taskId) {
-      stored.tasks.forEach(function(task,index) {
+      tasks.forEach(function(task,index) {
         if (task.id === taskId) {
-          stored.tasks.splice(index,1);
+          tasks.splice(index,1);
+          refreshTasks();
+          saveTasks();
         }
       });
-      internal.flushTasks();
     },
 
     selectProject: function(projectId) {
-      if (selected.project === projectId) {
-        selected.project = 0;
+      if (state.selected.project === projectId) {
+        state.selected.project = 0;
       } else {
-        selected.project = projectId;
+        state.selected.project = projectId;
       }
-      internal.flushVersions();
-      internal.flushLabels();
-      internal.flushTasks();
+      refreshVersions();
+      refreshTasks();
+      saveState();
     },
 
     selectVersion: function(versionId) {
-      if (selected.version === versionId) {
-        selected.version = 0;
+      if (state.selected.version === versionId) {
+        state.selected.version = 0;
       } else {
-        selected.version = versionId;
+        state.selected.version = versionId;
       }
-      internal.flushTasks();
-    },
-
-    selectLabel: function(labelId) {
-      if (selected.label === labelId) {
-        selected.label = 0;
-      } else {
-        selected.label = labelId;
-      }
-      internal.flushTasks();
+      refreshTasks();
+      saveState();
     },
 
     selectTask: function(taskId) {
-      if (selected.task === taskId) {
-        selected.task = 0;
+      if (state.selected.task === taskId) {
+        state.selected.task = 0;
       } else {
-        selected.task = taskId;
+        state.selected.task = taskId;
       }
+      saveState();
     },
 
     doneProject: function(val) {
-      checked.project = val;
-      internal.flushProjects();
+      state.done.project = val;
+      refreshProjects();
+      saveState();
     },
 
     doneVersion: function(val) {
-      checked.version = val;
-      internal.flushVersions();
-    },
-
-    doneLabel: function(val) {
-      checked.label = val;
-      internal.flushLabels();
+      state.done.version = val;
+      refreshVersions();
+      saveState();
     },
 
     doneTask: function(val) {
-      checked.task = val;
-      internal.flushTasks();
+      state.done.task = val;
+      refreshTasks();
+      saveState();
     },
 
   };
-
-// - -------------------------------------------------------------------- - //
-
-  // internal.clear();
-  internal.load();
-  setInterval(internal.save,5000);
-
-  return exports;
 
 });
 

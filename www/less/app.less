@@ -1,0 +1,165 @@
+/* - --------------------------------------------------------- - */
+
+@font: #000;
+@layout-border: #CCC;
+
+@header-bg: #003E00;
+@header-font: #FFF;
+
+@list-bg: #DDD;
+@list-border: #FFF;
+@button-bg: #BBB;
+@selected-list-bg: #CCC;
+@unchecked-bg: #FFF;
+@checked-bg: #333;
+
+
+/* - --------------------------------------------------------- - */
+/* - globals - */
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Segoe UI Light', sans-serif;
+  color: @font;
+}
+
+/* - --------------------------------------------------------- - */
+/* - app layout - */
+
+html, body {
+  height: 100%;
+  aside {
+    float: left;
+    height: 100%;
+    width: 20%;
+    border-right: 1px solid @layout-border;
+    section {
+      height: 50%;
+    }
+  }
+  main {
+    float: left;
+    width: 80%;
+    height: 100%;
+    section {
+      height: 100%;
+    }
+  }
+}
+
+/* - --------------------------------------------------------- - */
+/* - section layout - */
+
+section {
+  background-color: @list-bg;
+  position: relative;
+  form, header {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    height: 36px;
+  }
+  form {
+    top: 36px;
+  }
+  h1 span.text {
+    color: @header-font;
+    background-color: @header-bg;
+  }
+  div {
+    height: 100%;
+    padding-top: 72px;
+  }
+}
+
+/* - --------------------------------------------------------- - */
+/* - form styles - */
+
+button[type=submit] {
+  display: none;
+}
+
+input[type=text] {
+  border: none;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: block;
+  padding: 10px;
+  width: 100%;
+  -webkit-appearance: none;
+  border-radius: 0px;
+}
+
+input[type=checkbox] {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  background-color: @unchecked-bg;
+  border-radius: 2px;
+}
+
+input[type=checkbox]:checked {
+  background-color: @checked-bg;
+}
+
+span.text {
+  padding: 10px 10px 10px 30px;
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* - --------------------------------------------------------- - */
+/* - list styles - */
+
+ul {
+  height: 100%;
+  overflow: auto;
+  list-style-type: none;
+  border-top: 1px solid @layout-border;
+  li {
+    position: relative;
+    border-bottom: 1px solid @list-border;
+    button {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+      width: 26px;
+      height: 26px;
+      background-color: @button-bg;
+      border: none;
+      border-radius: 3px;
+      display: none;
+      &.delete {
+        background-image: url(../img/trash-16.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+    }
+    &.checked {
+      span {
+        text-decoration: line-through;
+      }
+    }
+    &.selected {
+      padding-right: 36px;
+      background-color: @selected-list-bg;
+      font-weight: bold;
+      button {
+        display: block;
+      }
+    }
+  }
+}
+
+
+/* - --------------------------------------------------------- - */

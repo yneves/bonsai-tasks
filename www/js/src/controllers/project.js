@@ -8,7 +8,7 @@
 
 app.controller("ProjectController",function($scope,Lang,Data) {
   $scope.projects = Data.getProjects();
-  $scope.selected = Data.selected();
+  $scope.selected = Data.getSelected();
   $scope.addProject = function() {
     Data.addProject($scope.projectName);
     $scope.projectName = "";

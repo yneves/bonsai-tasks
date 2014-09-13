@@ -8,7 +8,7 @@
 
 app.controller("VersionController",function($scope,Lang,Data) {
   $scope.versions = Data.getVersions();
-  $scope.selected = Data.selected();
+  $scope.selected = Data.getSelected();
   $scope.addVersion = function() {
     Data.addVersion($scope.versionNumber);
     $scope.versionNumber = "";

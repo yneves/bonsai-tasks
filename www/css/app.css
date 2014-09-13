@@ -1,1 +1,139 @@
-*{box-sizing:border-box;margin:0px;padding:0px;font-family:'Segoe UI Light',sans-serif}::-webkit-scrollbar{width:12px;height:12px}::-webkit-scrollbar-track,::-webkit-scrollbar-corner{background-color:#2d652b}::-webkit-scrollbar-thumb{background-color:#003e00;xborder-radius:5px}html,body{height:100%}html aside,body aside{float:left;height:100%;width:20%}html aside section,body aside section{height:33.3%}html aside section:first-child,body aside section:first-child{height:33.4%}html main,body main{float:left;width:80%;height:100%}html main section,body main section{height:100%}aside{border-right:1px solid #3d893a}section{background-color:#2d652b;position:relative}section header{position:absolute;top:0px;left:0px;right:0px;height:36px}section header input[type=checkbox]{position:absolute;top:12px;left:10px}section header h1{padding:10px 10px 10px 30px;font-size:14px;background-color:#003e00;color:#fff;font-weight:normal;letter-spacing:2px}section form{position:absolute;top:36px;left:0px;right:0px;height:36px}section form input[type=text]{border:none;background-color:transparent;color:#fff;font-size:14px;letter-spacing:1px;display:block;padding:10px;width:100%}section form input[type=text]:focus{background-color:#3d893a}section form button[type=submit]{display:none}section div{height:100%;padding-top:72px}section div ul{height:100%;overflow:auto;list-style-type:none;border-top:1px solid #3d893a}section div ul li{position:relative;display:flex;color:#fff;border-bottom:1px solid #3d893a}section div ul li span{font-size:14px;letter-spacing:1px;flex-shrink:1;padding:10px 10px 10px 30px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}section div ul li small{flex-shrink:0;font-size:12px;letter-spacing:1px;background-color:#3d893a;margin:5px 10px 5px 0px;padding:5px;border-radius:3px}section div ul li input[type=checkbox]{position:absolute;top:12px;left:10px}section div ul li button{position:absolute;right:10px;top:10px;width:16px;height:16px;background-color:transparent;border:none;display:none}section div ul li button.delete{background-image:url(../img/trash-16.png)}section div ul li.checked span{text-decoration:line-through}section div ul li.selected{background-color:#3d893a}section div ul li.selected button{display:block}
+/* - --------------------------------------------------------- - */
+/* - --------------------------------------------------------- - */
+/* - globals - */
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Segoe UI Light', sans-serif;
+  color: #000000;
+}
+/* - --------------------------------------------------------- - */
+/* - app layout - */
+html,
+body {
+  height: 100%;
+}
+html aside,
+body aside {
+  float: left;
+  height: 100%;
+  width: 20%;
+  border-right: 1px solid #cccccc;
+}
+html aside section,
+body aside section {
+  height: 50%;
+}
+html main,
+body main {
+  float: left;
+  width: 80%;
+  height: 100%;
+}
+html main section,
+body main section {
+  height: 100%;
+}
+/* - --------------------------------------------------------- - */
+/* - section layout - */
+section {
+  background-color: #dddddd;
+  position: relative;
+}
+section form,
+section header {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  height: 36px;
+}
+section form {
+  top: 36px;
+}
+section h1 span.text {
+  color: #ffffff;
+  background-color: #003e00;
+}
+section div {
+  height: 100%;
+  padding-top: 72px;
+}
+/* - --------------------------------------------------------- - */
+/* - form styles - */
+button[type=submit] {
+  display: none;
+}
+input[type=text] {
+  border: none;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: block;
+  padding: 10px;
+  width: 100%;
+  -webkit-appearance: none;
+  border-radius: 0px;
+}
+input[type=checkbox] {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+input[type=checkbox]:checked {
+  background-color: #333333;
+}
+span.text {
+  padding: 10px 10px 10px 30px;
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* - --------------------------------------------------------- - */
+/* - list styles - */
+ul {
+  height: 100%;
+  overflow: auto;
+  list-style-type: none;
+  border-top: 1px solid #cccccc;
+}
+ul li {
+  position: relative;
+  border-bottom: 1px solid #ffffff;
+}
+ul li button {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  width: 26px;
+  height: 26px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 3px;
+  display: none;
+}
+ul li button.delete {
+  background-image: url(../img/trash-16.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+ul li.checked span {
+  text-decoration: line-through;
+}
+ul li.selected {
+  padding-right: 36px;
+  background-color: #cccccc;
+  font-weight: bold;
+}
+ul li.selected button {
+  display: block;
+}
+/* - --------------------------------------------------------- - */

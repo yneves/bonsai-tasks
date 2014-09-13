@@ -8,7 +8,7 @@
 
 app.controller("TaskController",function($scope,Lang,Data) {
   $scope.tasks = Data.getTasks();
-  $scope.selected = Data.selected();
+  $scope.selected = Data.getSelected();
   $scope.addTask = function() {
     Data.addTask($scope.taskText);
     $scope.taskText = "";

@@ -6,34 +6,35 @@
 */
 // - -------------------------------------------------------------------- - //
 
-var app = angular.module("BonsaiTasks",[]);
+var app = angular.module("BonsaiTasks",["ngTouch"]);
 
-// - -------------------------------------------------------------------- - //
-// - Language resources
+app.run(function($window,$rootScope,Lang) {
 
-app.run(function($rootScope,Lang) {
+  // Applies language resources.
   $rootScope.lang = Lang;
+
+  function hideSplash() {
+    angular.element($window.document.getElementById("splash-style")).remove();
+  }
+
+  var appCache = $window.applicationCache;
+  if (appCache.status === appCache.UNCACHED) {
+    appCache.update();
+  }
+  appCache.addEventListener("cached",hideSplash);
+  appCache.addEventListener("noupdate",hideSplash);
+  appCache.addEventListener("error",function() {
+    console.log(error);
+    hideSplash();
+  });
+  appCache.addEventListener("obsolete",function() {
+    appCache.update();
+  });
+  appCache.addEventListener("updateready",function() {
+    appCache.swapCache();
+    $window.location.reload();
+  });
+
 });
-
-app.factory("Lang",function() {
-  return {
-    projects: "Projects",
-    versions: "Versions",
-    labels: "Labels",
-    tasks: "Tasks",
-    newProject: "Add new project",
-    newVersion: "Add new version",
-    newLabel: "Add new label",
-    newTask: "Add new task",
-    submitProject: "OK",
-    submitVersion: "OK",
-    submitLabel: "OK",
-    submitTask: "OK",
-  };
-});
-
-
-
-
 
 // - -------------------------------------------------------------------- - //

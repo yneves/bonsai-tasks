@@ -9,7 +9,6 @@
 
 var lib = {
   express: require("express"),
-  lessmw: require("less-middleware"),
 };
 
 // - -------------------------------------------------------------------- - //
@@ -17,7 +16,6 @@ var lib = {
 
 var app = lib.express();
 
-app.use( lib.lessmw("./www",{ force: true }) );
 app.use( lib.express.static("./www") );
 
 app.listen(3232);
