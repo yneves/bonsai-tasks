@@ -45,13 +45,13 @@ module.exports = function(grunt) {
         cwd: "./www",
         src: ["js/**/*.js"],
         dest: "./www/html/scripts.html",
-        filter: function(src) { return !/\/index\.js/.test(src) },
+        filter: function(src) { return !/index/.test(src) },
       },
       devStyles: {
         cwd: "./www",
         src: ["css/**/*.css"],
         dest: "./www/html/styles.html",
-        filter: function(src) { return !/\/index\.css/.test(src) },
+        filter: function(src) { return !/index/.test(src) },
       },
       prodScripts: {
         cwd: "./www",
@@ -151,11 +151,27 @@ module.exports = function(grunt) {
       }
     },
 
+    copy: {
+      web: {
+        expand: true,
+        cwd: "./www",
+        src: [
+          "index.html",
+          "css/index.css",
+          "js/index.js",
+          "cache-manifest",
+          "img/*.*",
+        ],
+        dest: "dist/web/<%= pkg.name %>-<%= pkg.version %>/",
+      },
+    },
+
   });
 
   grunt.loadTasks("tasks");
 
   grunt.loadNpmTasks("grunt-contrib-concat");
+  grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-less");
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-htmlmin");
@@ -183,6 +199,11 @@ module.exports = function(grunt) {
     "html:prod",
     "htmlmin:prod",
     "manifest:prod",
+  ]);
+
+  grunt.registerTask("dist",[
+    "prod",
+    "copy:web",
   ]);
 
 };
