@@ -5,10 +5,11 @@ Just another TODO application with AngularJS.
 
 ### Features
 
- * The application is focused on manage tasks for software development.
- * Add projects, versions and tasks.
- * Everything has a `done` flag, even projects and versions.
- * Everything can be filtered by the `done` flag.
+ * You can add projects, versions and tasks.
+ * Versions belongs to projects.
+ * Tasks belongs to versions and projects.
+ * Everything has a `done` flag.
+ * Lists can filtered by the `done` flag.
 
 ### Technologies
 

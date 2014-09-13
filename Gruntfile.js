@@ -17,11 +17,13 @@ module.exports = function(grunt) {
       },
       scripts: {
         src: ["./www/js/**/*.js"],
-        dest: "./www/index.js",
+        dest: "./www/js/index.js",
+        filter: function(src) { return !/index/.test(src) },
       },
       styles: {
         src: ["./www/css/**/*.css"],
-        dest: "./www/index.css",
+        dest: "./www/css/index.css",
+        filter: function(src) { return !/index/.test(src) },
       },
     },
 
@@ -43,20 +45,22 @@ module.exports = function(grunt) {
         cwd: "./www",
         src: ["js/**/*.js"],
         dest: "./www/html/scripts.html",
+        filter: function(src) { return !/\/index\.js/.test(src) },
       },
       devStyles: {
         cwd: "./www",
         src: ["css/**/*.css"],
         dest: "./www/html/styles.html",
+        filter: function(src) { return !/\/index\.css/.test(src) },
       },
       prodScripts: {
         cwd: "./www",
-        src: ["index.js"],
+        src: ["js/index.js"],
         dest: "./www/html/scripts.html",
       },
       prodStyles: {
         cwd: "./www",
-        src: ["index.css"],
+        src: ["css/index.css"],
         dest: "./www/html/styles.html",
       },
     },
@@ -74,7 +78,7 @@ module.exports = function(grunt) {
           cleancss: true,
         },
         files: {
-          "./www/index.css": "./www/index.css",
+          "./www/css/index.css": "./www/css/index.css",
         },
       },
     },
@@ -84,8 +88,8 @@ module.exports = function(grunt) {
         banner: "/*! <%= pkg.name %> <%= pkg.version %> <%= grunt.template.today('yyyy-mm-dd') %> */\n",
       },
       prod: {
-        src: "./www/index.js",
-        dest: "./www/index.js",
+        src: "./www/js/index.js",
+        dest: "./www/js/index.js",
       },
     },
 
@@ -104,7 +108,7 @@ module.exports = function(grunt) {
     ngAnnotate: {
       prod: {
         files: {
-          "./www/index.js": "./www/index.js",
+          "./www/js/index.js": "./www/js/index.js",
         },
       },
     },
@@ -124,7 +128,7 @@ module.exports = function(grunt) {
           network: [],
           timestamp: true
         },
-        src: ["index.html","index.css","index.js","img/*"],
+        src: ["index.html","css/index.css","js/index.js","img/*"],
         dest: "./www/cache-manifest",
       },
     },
