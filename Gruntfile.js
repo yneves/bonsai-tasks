@@ -41,27 +41,16 @@ module.exports = function(grunt) {
     },
 
     list: {
-      devScripts: {
+      dev: {
         cwd: "./www",
-        src: ["js/**/*.js"],
-        dest: "./www/html/scripts.html",
+        src: ["css/**/*.css","js/**/*.js"],
+        dest: "./www/html/assets.html",
         filter: function(src) { return !/index/.test(src) },
       },
-      devStyles: {
+      prod: {
         cwd: "./www",
-        src: ["css/**/*.css"],
-        dest: "./www/html/styles.html",
-        filter: function(src) { return !/index/.test(src) },
-      },
-      prodScripts: {
-        cwd: "./www",
-        src: ["js/index.js"],
-        dest: "./www/html/scripts.html",
-      },
-      prodStyles: {
-        cwd: "./www",
-        src: ["css/index.css"],
-        dest: "./www/html/styles.html",
+        src: ["css/index.css","js/index.js"],
+        dest: "./www/html/assets.html",
       },
     },
 
@@ -143,7 +132,7 @@ module.exports = function(grunt) {
         tileBlackWhite: false,
         tileColor: "#DDDDDD",
         html: "./www/html/icons.html",
-        HTMLPrefix: "../img/"
+        HTMLPrefix: "img/"
       },
       icons: {
         src: "./www/img/logo-256.png",
@@ -181,8 +170,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask("dev",[
     "less:dev",
-    "list:devScripts",
-    "list:devStyles",
+    "list:dev",
     "html:dev",
     "manifest:dev",
   ]);
@@ -194,14 +182,14 @@ module.exports = function(grunt) {
     "uglify:prod",
     "concat:styles",
     "less:prod",
-    "list:prodScripts",
-    "list:prodStyles",
+    "list:prod",
     "html:prod",
     "htmlmin:prod",
     "manifest:prod",
   ]);
 
   grunt.registerTask("dist",[
+    "favicons",
     "prod",
     "copy:web",
   ]);

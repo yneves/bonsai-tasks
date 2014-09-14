@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="BonsaiTasks" ng-touch <%= manifest %>>
+<html manifest="cache-manifest" ng-app="BonsaiTasks" ng-touch >
   <head>
     <title><%= pkg.productName %> <%= pkg.version %></title>
     <%= mobile %>
@@ -16,7 +16,6 @@
     <main>
       <%= task %>
     </main>
-    <%= styles %>
-    <%= scripts %>
+    <%= assets %>
   </body>
 </html>

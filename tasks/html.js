@@ -10,10 +10,7 @@ module.exports = function(grunt) {
   var path = require("path");
 
   grunt.registerMultiTask("html",function() {
-    var data = {
-      pkg: grunt.config.get("pkg"),
-      manifest: this.data.manifest ? 'manifest="' + this.data.manifest + '"' : "",
-    };
+    var data = { pkg: grunt.config.get("pkg") };
     grunt.file.recurse(this.data.path,function(file) {
       var name = path.basename(file,path.extname(file));
       data[name] = grunt.file.read(file,{ encoding: "utf8" });
