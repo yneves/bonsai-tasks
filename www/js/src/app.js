@@ -20,23 +20,28 @@ app.run(function($window,$rootScope,Lang) {
     }
   }
 
-  var appCache = $window.applicationCache;
-  if (appCache.status === appCache.UNCACHED) {
-    appCache.update();
-  }
-  appCache.addEventListener("cached",hideSplash);
-  appCache.addEventListener("noupdate",hideSplash);
-  appCache.addEventListener("error",function() {
-    console.log(error);
+  // Doesn't use the ApplicationCache if running from local file.
+  // This is necessary to support atom-shell distribution.
+  if ($window.location.protocol === "file:") {
     hideSplash();
-  });
-  appCache.addEventListener("obsolete",function() {
-    appCache.update();
-  });
-  appCache.addEventListener("updateready",function() {
-    appCache.swapCache();
-    $window.location.reload();
-  });
+  } else {
+    var appCache = $window.applicationCache;
+    if (appCache.status === appCache.UNCACHED) {
+      appCache.update();
+    }
+    appCache.addEventListener("cached",hideSplash);
+    appCache.addEventListener("noupdate",hideSplash);
+    appCache.addEventListener("error",function() {
+      hideSplash();
+    });
+    appCache.addEventListener("obsolete",function() {
+      appCache.update();
+    });
+    appCache.addEventListener("updateready",function() {
+      appCache.swapCache();
+      $window.location.reload();
+    });
+  }
 
 });
 
